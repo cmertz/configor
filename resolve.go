@@ -38,7 +38,8 @@ func Resolve(config interface{}, resolvers ...Resolver) error {
 	return nil
 }
 
-// prefix the paths of a list of fields with a path
+// prefix the paths of a list of fields with a path.
+//
 // This is used when descending the config tree and
 // building the paths.
 func prefix(fields []field, prefix []string) []field {

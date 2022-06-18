@@ -7,17 +7,15 @@ import (
 	"strconv"
 )
 
-var (
-	// ErrInvalidInput signals that the input was invalid
-	ErrInvalidInput = errors.New("invalid input")
-)
+// ErrInvalidInput signals that the input was invalid
+var ErrInvalidInput = errors.New("invalid input")
 
 type field struct {
-	structPath []string
-	path       []string
-	t          reflect.Type
-	v          reflect.Value
-	isSet      bool
+	path  []string
+	isSet bool
+
+	t reflect.Type
+	v reflect.Value
 }
 
 func fieldFor(i interface{}) field {
@@ -69,10 +67,9 @@ func (f field) fields() []field {
 	var res []field
 	for i := 0; i < f.t.NumField(); i++ {
 		res = append(res, field{
-			structPath: []string{f.t.Field(i).Name},
-			path:       []string{f.t.Field(i).Name},
-			t:          f.t.Field(i).Type,
-			v:          f.v.Field(i),
+			path: []string{f.t.Field(i).Name},
+			t:    f.t.Field(i).Type,
+			v:    f.v.Field(i),
 		})
 	}
 
