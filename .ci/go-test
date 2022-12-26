@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+set -o nounset
+set -o errexit
+
+cover_threshold=$1
+cover_profile=$(mktemp)
+
+echo "running tests with coverprofile $cover_profile"
+go test -coverprofile=$cover_profile ./... >/dev/null
+total=$(go tool cover -func $cover_profile | grep 'total:' | awk '{ print $3}' | sed 's/\..*//')
+
+rm -f $cover_profile
+
+
+echo "checking test coverage against threshold"
+
+if [[ $total -lt $cover_threshold ]]
+then
+  echo "test coverage of ${total}% is below threshold of ${cover_threshold}%"
+  exit 1
+fi
