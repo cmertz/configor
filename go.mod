@@ -1,3 +1,3 @@
 module github.com/cmertz/configor
 
-go 1.18
+go 1.19
