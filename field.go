@@ -25,8 +25,8 @@ func fieldFor(i interface{}) field {
 	}
 }
 
-// nolint:exhaustive
 func (f *field) set(value string) error {
+	//nolint:exhaustive
 	switch f.t.Kind() {
 	case reflect.Bool:
 		if value != "true" && value != "false" {
